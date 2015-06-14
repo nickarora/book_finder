@@ -20,11 +20,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 
 public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
+    private static final String QUERY_URL = "http://openlibrary.org/search.json?q=";
     private static final String PREFS = "prefs";
     private static final String PREF_NAME = "name";
     SharedPreferences mSharedPreferences;
@@ -144,5 +152,36 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             shareIntent.putExtra(Intent.EXTRA_TEXT, mainTextView.getText());
             mShareActionProvider.setShareIntent(shareIntent);
         }
+    }
+
+    private void queryBooks(String searchString) {
+
+        String urlString = "";
+
+        try {
+            urlString = URLEncoder.encode(searchString, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(QUERY_URL + urlString,
+                new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(JSONObject jsonObject) {
+                        Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_LONG).show();
+                        Log.d("book finder", jsonObject.toString());
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Throwable throwable, JSONObject jsonObject) {
+                        Toast.makeText(getApplicationContext(),
+                                "Error: " + statusCode + " " + throwable.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                        Log.e("book finder", statusCode + " " + throwable.getMessage());
+                    }
+                });
     }
 }
