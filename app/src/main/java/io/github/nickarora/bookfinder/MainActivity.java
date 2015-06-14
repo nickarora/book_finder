@@ -145,6 +145,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        JSONObject jsonObject = (JSONObject) mJSONAdapter.getItem(position);
+        String coverID = jsonObject.optString("cover_i", "");
+        Intent detailIntent = new Intent(this, DetailActivity.class);
+        detailIntent.putExtra("coverID", coverID);
+        startActivity(detailIntent);
     }
 
     private void setShareIntent() {
