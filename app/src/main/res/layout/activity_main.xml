@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world"
+        android:text="@string/main_text"
         android:textSize="32sp"
         android:id="@+id/mainText"
         android:layout_gravity="center_horizontal" />
@@ -22,7 +22,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update the Text View"
+            android:text="@string/button"
             android:id="@+id/button"
             android:layout_gravity="center_horizontal" />
 

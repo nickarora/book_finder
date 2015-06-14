@@ -6,9 +6,12 @@
         android:targetSdkVersion="21"
         android:minSdkVersion="21" />
 
+    <!-- NEED TO ADD TO BE ABLE TO GO ONLINE AND GET DATA -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_books"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
