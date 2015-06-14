@@ -39,8 +39,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
     TextView mainTextView;
     protected ListView mainListView;
-    protected ArrayAdapter myArrayAdapter;
-    protected ArrayList mNameList = new ArrayList();
+    protected JSONAdapter mJSONAdapter;
     ShareActionProvider mShareActionProvider;
 
     @Override
@@ -52,12 +51,12 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         mainButton.setOnClickListener(this);
 
         mainTextView = (TextView) findViewById(R.id.mainText);
-
         mainListView = (ListView) findViewById(R.id.main_listview);
-        myArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mNameList);
 
-        mainListView.setAdapter(myArrayAdapter);
         mainListView.setOnItemClickListener(this);
+
+        mJSONAdapter = new JSONAdapter(this, getLayoutInflater());
+        mainListView.setAdapter(mJSONAdapter);
 
         displayWelcome();
     }
@@ -134,14 +133,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     @Override
     public void onClick(View view) {
         EditText mainEditText = (EditText) findViewById(R.id.main_editText);
-//        mNameList.add(mainEditText.getText().toString());
-//        myArrayAdapter.notifyDataSetChanged();
         queryBooks(mainEditText.getText().toString());
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Log.d("BookFinder", "position: " + mNameList.get(position));
     }
 
     private void setShareIntent() {
@@ -173,7 +169,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                     @Override
                     public void onSuccess(JSONObject jsonObject) {
                         Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_LONG).show();
-                        Log.d("bookFinder", jsonObject.toString());
+                        mJSONAdapter.updateData(jsonObject.optJSONArray("docs"));
                     }
 
                     @Override

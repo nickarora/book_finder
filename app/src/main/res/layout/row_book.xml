@@ -10,7 +10,7 @@
         android:layout_marginLeft="25dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:scaleType="centerInside"/>
+        android:scaleType="fitCenter"/>
 
     <TextView
         android:id="@+id/text_title"

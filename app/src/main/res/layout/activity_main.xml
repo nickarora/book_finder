@@ -38,6 +38,8 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:hint="@string/hint"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:ems="10"
         android:id="@+id/main_editText"
         android:layout_gravity="center_horizontal" />
