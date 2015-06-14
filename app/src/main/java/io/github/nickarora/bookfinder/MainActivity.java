@@ -134,8 +134,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     @Override
     public void onClick(View view) {
         EditText mainEditText = (EditText) findViewById(R.id.main_editText);
-        mNameList.add(mainEditText.getText().toString());
-        myArrayAdapter.notifyDataSetChanged();
+//        mNameList.add(mainEditText.getText().toString());
+//        myArrayAdapter.notifyDataSetChanged();
+        queryBooks(mainEditText.getText().toString());
     }
 
     @Override
@@ -172,7 +173,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                     @Override
                     public void onSuccess(JSONObject jsonObject) {
                         Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_LONG).show();
-                        Log.d("book finder", jsonObject.toString());
+                        Log.d("bookFinder", jsonObject.toString());
                     }
 
                     @Override
@@ -180,7 +181,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                         Toast.makeText(getApplicationContext(),
                                 "Error: " + statusCode + " " + throwable.getMessage(),
                                 Toast.LENGTH_LONG).show();
-                        Log.e("book finder", statusCode + " " + throwable.getMessage());
+                        Log.e("bookFinder", statusCode + " " + throwable.getMessage());
                     }
                 });
     }
